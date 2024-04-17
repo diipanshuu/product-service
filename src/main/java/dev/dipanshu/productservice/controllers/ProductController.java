@@ -3,10 +3,7 @@ package dev.dipanshu.productservice.controllers;
 import dev.dipanshu.productservice.models.Product;
 import dev.dipanshu.productservice.services.FakeStoreProductService;
 import dev.dipanshu.productservice.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,11 @@ public class ProductController {
     @GetMapping("/products/categories")
     public List<String> getProductCategories(){
         return productService.getProductCategories();
+    }
+
+    @PutMapping("/products/{id}")
+    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
+        return productService.updateProduct(id, product);
     }
 
     public void deleteProduct(Long id){

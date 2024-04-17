@@ -84,4 +84,14 @@ public class FakeStoreProductService implements ProductService{
 
         return Arrays.asList(categories);
     }
+
+    @Override
+    public Product updateProduct(Long id, Product product) {
+        restTemplate.put(
+                "https://fakestoreapi.com/products/{id}",
+                product,
+                id
+        );
+        return product;
+    }
 }
