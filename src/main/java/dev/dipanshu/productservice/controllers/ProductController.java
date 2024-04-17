@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 
@@ -22,8 +24,8 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public void getAllProducts(){
-
+    public List<Product> getAllProducts(){
+        return productService.getProducts();
     }
 
     @GetMapping("/products/{id}")

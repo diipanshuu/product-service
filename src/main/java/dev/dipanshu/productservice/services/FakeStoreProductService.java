@@ -1,10 +1,17 @@
 package dev.dipanshu.productservice.services;
 
 import dev.dipanshu.productservice.dtos.FakeStoreProductDto;
+import dev.dipanshu.productservice.dtos.FakeStoreProductDtoList;
 import dev.dipanshu.productservice.models.Category;
 import dev.dipanshu.productservice.models.Product;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class FakeStoreProductService implements ProductService{
@@ -31,5 +38,40 @@ public class FakeStoreProductService implements ProductService{
 
         return product;
 
+    }
+
+    public List<Product> getProducts(){
+//        FakeStoreProductDtoList fakeStoreProductDtoList = restTemplate
+//                .getForObject("https://fakestoreapi.com/products",
+//                        FakeStoreProductDtoList.class);
+//
+//        List<FakeStoreProductDto> dtoList = fakeStoreProductDtoList.getProducts();
+//        List<Product> products = new ArrayList<>();
+        ResponseEntity<List<FakeStoreProductDto>> responseEntity = restTemplate.exchange(
+                "https://fakestoreapi.com/products",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<FakeStoreProductDto>>() {}
+        );
+
+        List<FakeStoreProductDto> dtoList = responseEntity.getBody();
+        List<Product> products = new ArrayList<>();
+
+        for(FakeStoreProductDto dto : dtoList) {
+
+            Product product = new Product();
+            product.setId(dto.getId());
+            product.setTitle(dto.getTitle());
+            product.setDescription(dto.getDescription());
+            product.setImageUrl(dto.getImage());
+
+            Category category = new Category();
+            category.setTitle(dto.getCategory());
+            product.setCategory(category);
+
+            products.add(product);
+        }
+
+        return products;
     }
 }
