@@ -5,10 +5,10 @@ import dev.dipanshu.productservice.dtos.FakeStoreProductDtoList;
 import dev.dipanshu.productservice.models.Category;
 import dev.dipanshu.productservice.models.Product;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,5 +83,33 @@ public class FakeStoreProductService implements ProductService{
                     String[].class);
 
         return Arrays.asList(categories);
+    }
+
+    @Override
+    public Product updateProductPut(Long id, Product product) {
+        restTemplate.put(
+                "https://fakestoreapi.com/products/{id}",
+                product,
+                id
+        );
+        return product;
+    }
+
+    @Override
+    public Product updateProductPatch(Long id, Product product) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Product> requestEntity = new HttpEntity<>(product, headers);
+
+        ResponseEntity<Product> responseEntity = restTemplate.exchange(
+                "https://fakestoreapi.com/products/{id}",
+                HttpMethod.PATCH,
+                requestEntity,
+                Product.class,
+                id
+        );
+        
+        return responseEntity.getBody();
     }
 }

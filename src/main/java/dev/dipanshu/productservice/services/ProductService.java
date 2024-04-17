@@ -9,4 +9,6 @@ public interface ProductService {
     public Product getSingleProduct(Long id);
     public List<Product> getProducts();
     public List<String> getProductCategories();
+    public Product updateProductPut(Long id, Product product);
+    public Product updateProductPatch(Long id, Product product);
 }
