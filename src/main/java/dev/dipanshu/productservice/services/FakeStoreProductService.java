@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -73,5 +74,14 @@ public class FakeStoreProductService implements ProductService{
         }
 
         return products;
+    }
+
+    @Override
+    public List<String> getProductCategories() {
+        String[] categories = restTemplate.getForObject(
+                "https://fakestoreapi.com/products/categories",
+                    String[].class);
+
+        return Arrays.asList(categories);
     }
 }
