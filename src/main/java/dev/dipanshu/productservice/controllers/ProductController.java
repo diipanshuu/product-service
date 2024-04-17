@@ -36,6 +36,11 @@ public class ProductController {
         return productService.getSingleProduct(id);
     }
 
+    @GetMapping("/products/categories")
+    public List<String> getProductCategories(){
+        return productService.getProductCategories();
+    }
+
     public void deleteProduct(Long id){
 
     }
