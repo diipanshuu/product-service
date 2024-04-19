@@ -21,6 +21,23 @@ public class FakeStoreProductService implements ProductService{
     public FakeStoreProductService(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
+
+    @Override
+    public Product createProduct(String title, double price, String description, String image, String category) {
+        FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
+        fakeStoreProductDto.setCategory(category);
+        fakeStoreProductDto.setTitle(title);
+        fakeStoreProductDto.setPrice(price);
+        fakeStoreProductDto.setDescription(description);
+        fakeStoreProductDto.setImage(image);
+        FakeStoreProductDto response = restTemplate
+                .postForObject("https://fakestoreapi.com/products",
+                        fakeStoreProductDto,
+                        FakeStoreProductDto.class);
+
+        return response.toProduct();
+    }
+
     @Override
     public Product getSingleProduct(Long id) {
         FakeStoreProductDto fakeStoreProductDto = restTemplate
