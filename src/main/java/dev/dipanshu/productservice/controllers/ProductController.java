@@ -67,6 +67,7 @@ public class ProductController {
 
     }
 
+    /*
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ErrorDto> handleNullPointerException(){
         ErrorDto errorDto = new ErrorDto();
@@ -74,4 +75,6 @@ public class ProductController {
 
         return new ResponseEntity<>(errorDto, HttpStatusCode.valueOf(404));
     }
+
+     */
 }
