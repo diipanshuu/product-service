@@ -76,18 +76,7 @@ public class FakeStoreProductService implements ProductService{
         List<Product> products = new ArrayList<>();
 
         for(FakeStoreProductDto dto : dtoList) {
-
-            Product product = new Product();
-            product.setId(dto.getId());
-            product.setTitle(dto.getTitle());
-            product.setDescription(dto.getDescription());
-            product.setImageUrl(dto.getImage());
-
-            Category category = new Category();
-            category.setTitle(dto.getCategory());
-            product.setCategory(category);
-
-            products.add(product);
+            products.add(dto.toProduct());
         }
 
         return products;
