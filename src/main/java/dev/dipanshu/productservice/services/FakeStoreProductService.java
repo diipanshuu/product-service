@@ -38,9 +38,19 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long id) {
+        /*
         FakeStoreProductDto fakeStoreProductDto = restTemplate
                 .getForObject("https://fakestoreapi.com/products/" + id,
                         FakeStoreProductDto.class);
+         */
+        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.
+                getForEntity(
+                        "https://fakestoreapi.com/products/" + id,
+                        FakeStoreProductDto.class
+                );
+
+        FakeStoreProductDto fakeStoreProductDto = responseEntity.getBody();
+
 
         Product product = new Product();
         product.setId(fakeStoreProductDto.getId());

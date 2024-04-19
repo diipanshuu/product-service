@@ -4,6 +4,8 @@ import dev.dipanshu.productservice.dtos.CreateProductRequestDto;
 import dev.dipanshu.productservice.models.Product;
 import dev.dipanshu.productservice.services.FakeStoreProductService;
 import dev.dipanshu.productservice.services.ProductService;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,12 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productService.getProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> responseData = productService.getProducts();
+
+        ResponseEntity<List<Product>> responseEntity =
+                new ResponseEntity<>(responseData, HttpStatusCode.valueOf(202));
+        return responseEntity;
     }
 
     @GetMapping("/products/{id}")
