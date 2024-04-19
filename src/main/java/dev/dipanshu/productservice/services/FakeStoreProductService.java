@@ -106,4 +106,17 @@ public class FakeStoreProductService implements ProductService{
         
         return responseEntity.getBody();
     }
+
+    @Override
+    public Product deleteProduct(Long id) {
+        String url = "https://fakestoreapi.com/products/{id}";
+        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                FakeStoreProductDto.class,
+                id
+        );
+        return responseEntity.getBody().toProduct();
+    }
 }
