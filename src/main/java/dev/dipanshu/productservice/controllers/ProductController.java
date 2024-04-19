@@ -1,6 +1,7 @@
 package dev.dipanshu.productservice.controllers;
 
 import dev.dipanshu.productservice.dtos.CreateProductRequestDto;
+import dev.dipanshu.productservice.dtos.ErrorDto;
 import dev.dipanshu.productservice.models.Product;
 import dev.dipanshu.productservice.services.FakeStoreProductService;
 import dev.dipanshu.productservice.services.ProductService;
@@ -64,5 +65,13 @@ public class ProductController {
 
     public void deleteProduct(Long id){
 
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ErrorDto> handleNullPointerException(){
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setMessage("Something went wrong. Please try again!");
+
+        return new ResponseEntity<>(errorDto, HttpStatusCode.valueOf(404));
     }
 }
