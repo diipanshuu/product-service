@@ -1,10 +1,8 @@
 package dev.dipanshu.productservice.services;
 
 import dev.dipanshu.productservice.dtos.FakeStoreProductDto;
-import dev.dipanshu.productservice.dtos.FakeStoreProductDtoList;
 import dev.dipanshu.productservice.models.Category;
 import dev.dipanshu.productservice.models.Product;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -59,23 +57,13 @@ public class FakeStoreProductService implements ProductService{
     }
 
     public List<Product> getProducts(){
-//        FakeStoreProductDtoList fakeStoreProductDtoList = restTemplate
-//                .getForObject("https://fakestoreapi.com/products",
-//                        FakeStoreProductDtoList.class);
-//
-//        List<FakeStoreProductDto> dtoList = fakeStoreProductDtoList.getProducts();
-//        List<Product> products = new ArrayList<>();
-        ResponseEntity<List<FakeStoreProductDto>> responseEntity = restTemplate.exchange(
-                "https://fakestoreapi.com/products",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<FakeStoreProductDto>>() {}
-        );
+        FakeStoreProductDto[] response = restTemplate
+                .getForObject("https://fakestoreapi.com/products",
+                        FakeStoreProductDto[].class);
 
-        List<FakeStoreProductDto> dtoList = responseEntity.getBody();
         List<Product> products = new ArrayList<>();
 
-        for(FakeStoreProductDto dto : dtoList) {
+        for(FakeStoreProductDto dto : response) {
             products.add(dto.toProduct());
         }
 
