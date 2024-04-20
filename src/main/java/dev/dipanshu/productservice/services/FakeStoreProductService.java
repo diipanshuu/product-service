@@ -80,13 +80,17 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product updateProductPut(Long id, Product product) {
-        restTemplate.put(
-                "https://fakestoreapi.com/products/{id}",
-                product,
+    public Product updateProductPut(Long id, FakeStoreProductDto fakeStoreProductDto) {
+        String url = "https://fakestoreapi.com/products/{id}";
+        HttpEntity<FakeStoreProductDto> requestEntity = new HttpEntity<FakeStoreProductDto>(fakeStoreProductDto);
+        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                requestEntity,
+                FakeStoreProductDto.class,
                 id
         );
-        return product;
+        return responseEntity.getBody().toProduct();
     }
 
     @Override
