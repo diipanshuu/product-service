@@ -1,6 +1,6 @@
 # FakeStoreProductService
 
-Welcome to the `FakeStoreProductService` project! This service integrates with the [Fake Store API](https://fakestoreapi.com/) to provide product-related operations such as creating, updating, deleting, and retrieving products. The service is built using the Spring Framework and utilizes `RestTemplate` for making HTTP requests to the API.
+Welcome to the `Product-Service` project! This service integrates with the [Fake Store API](https://fakestoreapi.com/) to provide product-related operations such as creating, updating, deleting, and retrieving products. The service is built using the Spring Framework and utilizes `RestTemplate` for making HTTP requests to the API.
 
 ## Table of Contents
 
@@ -10,7 +10,6 @@ Welcome to the `FakeStoreProductService` project! This service integrates with t
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -81,8 +80,3 @@ The service interacts with the Fake Store API. You can learn more about the avai
 ## Contributing
 
 Contributions are welcome! If you find any issues or would like to propose improvements, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-
