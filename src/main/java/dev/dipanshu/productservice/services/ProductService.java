@@ -14,7 +14,7 @@ public interface ProductService {
     public List<Product> getProducts();
     public List<String> getProductCategories();
     public Product updateProductPut(Long id, FakeStoreProductDto fakeStoreProductDto);
-    public Product updateProductPatch(Long id, Product product);
+    public Product updateProductPatch(Long id, FakeStoreProductDto fakeStoreProductDto);
     public Product deleteProduct(Long id);
     public List<Product> getProductsByCategory(String category);
 }

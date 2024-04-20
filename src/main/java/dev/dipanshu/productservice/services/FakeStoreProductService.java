@@ -94,21 +94,20 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product updateProductPatch(Long id, Product product) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+    public Product updateProductPatch(Long id, FakeStoreProductDto fakeStoreProductDto) {
+        String url = "https://fakestoreapi.com/products/{id}";
 
-        HttpEntity<Product> requestEntity = new HttpEntity<>(product, headers);
+        HttpEntity<FakeStoreProductDto> requestEntity = new HttpEntity<FakeStoreProductDto>(fakeStoreProductDto);
 
-        ResponseEntity<Product> responseEntity = restTemplate.exchange(
-                "https://fakestoreapi.com/products/{id}",
-                HttpMethod.PATCH,
+        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
                 requestEntity,
-                Product.class,
+                FakeStoreProductDto.class,
                 id
         );
         
-        return responseEntity.getBody();
+        return responseEntity.getBody().toProduct();
     }
 
     @Override
