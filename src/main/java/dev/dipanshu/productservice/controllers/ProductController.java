@@ -53,8 +53,8 @@ public class ProductController {
     }
 
     @PatchMapping("/products/{id}")
-    public Product updateProductPatch(@PathVariable("id") Long id, @RequestBody Product product){
-        return productService.updateProductPatch(id, product);
+    public Product updateProductPatch(@PathVariable("id") Long id, @RequestBody FakeStoreProductDto fakeStoreProductDto){
+        return productService.updateProductPatch(id, fakeStoreProductDto);
     }
 
     @DeleteMapping("/products/{id}")
