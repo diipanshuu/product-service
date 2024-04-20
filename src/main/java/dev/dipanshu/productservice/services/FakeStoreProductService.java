@@ -119,4 +119,19 @@ public class FakeStoreProductService implements ProductService{
         );
         return responseEntity.getBody().toProduct();
     }
+
+    @Override
+    public List<Product> getProductsByCategory(String category) {
+        FakeStoreProductDto[] response = restTemplate
+                .getForObject("https://fakestoreapi.com/products/category/" + category,
+                        FakeStoreProductDto[].class);
+
+        List<Product> products = new ArrayList<>();
+
+        for(FakeStoreProductDto dto : response) {
+            products.add(dto.toProduct());
+        }
+
+        return products;
+    }
 }

@@ -60,4 +60,9 @@ public class ProductController {
     public Product deleteProduct(@PathVariable("id") Long id){
         return productService.deleteProduct(id);
     }
+
+    @GetMapping("/products/category/{category}")
+    public List<Product> getProductsByCategory(@PathVariable("category") String category){
+        return productService.getProductsByCategory(category);
+    }
 }

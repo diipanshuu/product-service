@@ -15,4 +15,5 @@ public interface ProductService {
     public Product updateProductPut(Long id, Product product);
     public Product updateProductPatch(Long id, Product product);
     public Product deleteProduct(Long id);
+    public List<Product> getProductsByCategory(String category);
 }
