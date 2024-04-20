@@ -1,7 +1,6 @@
-```markdown
 # FakeStoreProductService
 
-Welcome to the `FakeStoreProductService` project! This service integrates with the [Fake Store API](https://fakestoreapi.com/) to provide product-related operations such as creating, updating, deleting, and retrieving products. The service is built using Spring Framework and utilizes RestTemplate for making HTTP requests to the API.
+Welcome to the `FakeStoreProductService` project! This service integrates with the [Fake Store API](https://fakestoreapi.com/) to provide product-related operations such as creating, updating, deleting, and retrieving products. The service is built using the Spring Framework and utilizes `RestTemplate` for making HTTP requests to the API.
 
 ## Table of Contents
 
@@ -20,7 +19,7 @@ Welcome to the `FakeStoreProductService` project! This service integrates with t
 - Retrieve all products
 - Retrieve products by category
 - Retrieve available product categories
-- Update an existing product (using PUT and PATCH)
+- Update an existing product using PUT and PATCH methods
 - Delete a product by ID
 
 ## Prerequisites
@@ -69,7 +68,7 @@ The application will start, and you can begin interacting with the service.
 
 - **Retrieve products by category**: Use the `getProductsByCategory` method to fetch products of a specific category.
 
-- **Retrieve available product categories**: Use the `getProductCategories` method to get a list of product categories.
+- **Retrieve available product categories**: Use the `getProductCategories` method to get a list of available product categories.
 
 - **Update an existing product**: Use the `updateProductPut` or `updateProductPatch` methods to update a product using PUT or PATCH.
 
@@ -86,4 +85,4 @@ Contributions are welcome! If you find any issues or would like to propose impro
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-```
+
