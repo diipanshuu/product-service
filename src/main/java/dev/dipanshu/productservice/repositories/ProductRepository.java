@@ -18,4 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
     * @Query("select * from Product where id = 1")
     * Product getTheBestProduct();
     */
+
+    // Delete method to delete a product by id
+    void deleteById(Long id);
 }
