@@ -67,7 +67,9 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product deleteProduct(Long id) {
-        return null;
+        Product product = productRepository.findByIdIs(id);
+        productRepository.deleteById(id);
+        return product;
     }
 
     @Override
