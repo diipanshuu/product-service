@@ -5,10 +5,13 @@ import dev.dipanshu.productservice.models.Category;
 import dev.dipanshu.productservice.models.Product;
 import dev.dipanshu.productservice.repositories.CategoryRepository;
 import dev.dipanshu.productservice.repositories.ProductRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service("selfProductService")
 public class SelfProductService implements ProductService{
@@ -52,18 +55,65 @@ public class SelfProductService implements ProductService{
 
     @Override
     public List<String> getProductCategories() {
-        return null;
+
+        List<Category> allCategories = categoryRepository.findAll();
+        List<String> listOfString = new ArrayList<>();
+        for(Category obj : allCategories){
+            listOfString.add(obj.getTitle());
+        }
+        return listOfString;
     }
+
 
     @Override
     public Product updateProductPut(Long id, FakeStoreProductDto fakeStoreProductDto) {
-        return null;
+        Product product = productRepository.findById(id).orElse(new Product());
+
+        product.setId(id);
+
+        product.setTitle(fakeStoreProductDto.getTitle());
+        product.setDescription(fakeStoreProductDto.getDescription());
+        product.setImageUrl(fakeStoreProductDto.getImage());
+        product.setPrice(fakeStoreProductDto.getPrice());
+
+        Category category = categoryRepository.findByTitle(fakeStoreProductDto.getCategory());
+        if (category == null) {
+            category = new Category();
+            category.setTitle(fakeStoreProductDto.getCategory());
+            categoryRepository.save(category);
+        }
+        product.setCategory(category);
+
+        return productRepository.save(product);
     }
 
     @Override
     public Product updateProductPatch(Long id, FakeStoreProductDto fakeStoreProductDto) {
-        return null;
+        Product product = productRepository.findByIdIs(id);
+        if (fakeStoreProductDto.getTitle() != null) {
+            product.setTitle(fakeStoreProductDto.getTitle());
+        }
+        if (fakeStoreProductDto.getDescription() != null) {
+            product.setDescription(fakeStoreProductDto.getDescription());
+        }
+        if (fakeStoreProductDto.getImage() != null) {
+            product.setImageUrl(fakeStoreProductDto.getImage());
+        }
+        if (fakeStoreProductDto.getPrice() != 0D) {
+            product.setPrice(fakeStoreProductDto.getPrice());
+        }
+        if (fakeStoreProductDto.getCategory() != null) {
+            Category category = categoryRepository.findByTitle(fakeStoreProductDto.getCategory());
+            if (category == null) {
+                category = new Category();
+                category.setTitle(fakeStoreProductDto.getCategory());
+                categoryRepository.save(category);
+            }
+            product.setCategory(category);
+        }
+        return productRepository.save(product);
     }
+
 
     @Override
     public Product deleteProduct(Long id) {
@@ -72,9 +122,15 @@ public class SelfProductService implements ProductService{
         return product;
     }
 
+
     @Override
-    public List<Product> getProductsByCategory(String category) {
-        return null;
+    public List<Product> getProductsByCategory(String categoryTitle) {
+        Category category = categoryRepository.findByTitle(categoryTitle);
+        if (category != null) {
+            return productRepository.findByCategory(category);
+        }
+        return new ArrayList<>();
     }
+
 
 }

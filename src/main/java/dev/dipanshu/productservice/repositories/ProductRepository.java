@@ -1,5 +1,6 @@
 package dev.dipanshu.productservice.repositories;
 
+import dev.dipanshu.productservice.models.Category;
 import dev.dipanshu.productservice.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
     // Delete method to delete a product by id
     void deleteById(Long id);
+    List<Product> findByCategory(Category category);
 }

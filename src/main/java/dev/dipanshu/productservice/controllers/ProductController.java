@@ -3,7 +3,6 @@ package dev.dipanshu.productservice.controllers;
 import dev.dipanshu.productservice.dtos.CreateProductRequestDto;
 import dev.dipanshu.productservice.dtos.FakeStoreProductDto;
 import dev.dipanshu.productservice.models.Product;
-import dev.dipanshu.productservice.services.FakeStoreProductService;
 import dev.dipanshu.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;

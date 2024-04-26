@@ -1,7 +1,5 @@
 package dev.dipanshu.productservice.services;
 
-import dev.dipanshu.productservice.ProductServiceApplication;
-import dev.dipanshu.productservice.dtos.CreateProductRequestDto;
 import dev.dipanshu.productservice.dtos.FakeStoreProductDto;
 import dev.dipanshu.productservice.models.Product;
 
