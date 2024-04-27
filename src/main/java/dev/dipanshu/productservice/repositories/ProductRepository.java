@@ -13,6 +13,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
     Product findByIdIs(Long id);
 
+    /*
+    *   `List<Product> findAll()` is a method provided by Spring Data JPA repositories,
+    *   such as `JpaRepository`. It automatically retrieves a list of all `Product` records from
+    *   the `Product` entity table in the database. This predefined method efficiently handles data
+    *   retrieval, returning a list of `Product` objects representing all products stored in the database.
+    */
     List<Product> findAll();
 
     /* Hibernate Query Language

@@ -48,6 +48,14 @@ public class SelfProductService implements ProductService{
         return productRepository.save(product);
     }
 
+    /*
+    *   The getProducts() method retrieves a list of all Product objects from the database.
+    *   It calls productRepository.findAll(), which is an interface called ProductRepository
+    *   in repositories package which extends JpaRepository which internally implements the findAll method,
+    *   provided by Spring Data JPA, which fetches all records from the Product entity table in the database.
+    *   The findAll() method is predefined in Spring Data and automatically handles data retrieval.
+    *   The method returns a list of Product objects representing all products stored in the database.
+    */
     @Override
     public List<Product> getProducts() {
         return productRepository.findAll();
