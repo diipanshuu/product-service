@@ -30,6 +30,15 @@ public class ProductController {
 
     }
 
+    /*
+    *   When a GET request is made to `/products`, the method `getAllProducts()` is executed.
+    *   It calls `productService.getProducts()` to fetch a list of `Product` objects,
+    *   The Spring Boot framework automatically serializes this list into JSON format and
+    *   returns it as a JSON response to the client. Postman displays the JSON data.
+    *   The class SelfProductService in Service package implements ProductService interface,
+    *   and we use obj of that. We call getProducts on that which is implemented in the SelfProductService
+    *   class.
+    */
     @GetMapping("/products")
     public List<Product> getAllProducts() {
         return productService.getProducts();
