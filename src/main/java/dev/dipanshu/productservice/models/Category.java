@@ -14,10 +14,10 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
-@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Entity
 public class Category extends BaseModel{
     private String title;
@@ -26,4 +26,13 @@ public class Category extends BaseModel{
     @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore
     private List<Product> products;
+
+    /*
+    *   When it comes to JOIN the type doesn't matter,
+    *   but SELECT and SUBSELECT do care. When we do
+    *   select modes between select or join as modes SELECT is mostly used for queries.
+    *   SUBSELECT which occurs in two queries, whether it is lazy or eager.
+    *   If we prefer not to access the data immediately, so SUBSELECT also considers lazy loading.
+    */
+
 }
