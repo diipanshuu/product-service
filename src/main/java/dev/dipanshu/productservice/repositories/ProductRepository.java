@@ -3,6 +3,8 @@ package dev.dipanshu.productservice.repositories;
 import dev.dipanshu.productservice.models.Category;
 import dev.dipanshu.productservice.models.Product;
 import dev.dipanshu.productservice.repositories.projections.ProductWithTitleAndId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -44,4 +46,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
     // Delete method to delete a product by id
     void deleteById(Long id);
     List<Product> findByCategory(Category category);
+
+    Page<Product> findByTitleContaining(String title, Pageable pageable);
 }
