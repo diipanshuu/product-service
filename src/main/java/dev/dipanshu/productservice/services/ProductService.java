@@ -2,9 +2,11 @@ package dev.dipanshu.productservice.services;
 
 import dev.dipanshu.productservice.dtos.FakeStoreProductDto;
 import dev.dipanshu.productservice.models.Product;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface ProductService {
     public Product createProduct(String title, double price,
     String description, String image, String category);

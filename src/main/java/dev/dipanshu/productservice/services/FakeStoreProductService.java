@@ -3,8 +3,10 @@ package dev.dipanshu.productservice.services;
 import dev.dipanshu.productservice.dtos.FakeStoreProductDto;
 import dev.dipanshu.productservice.models.Category;
 import dev.dipanshu.productservice.models.Product;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -12,12 +14,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component("fakeStoreService")
+@Service("fakeStoreService")
 public class FakeStoreProductService implements ProductService{
     private RestTemplate restTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
-    public FakeStoreProductService(RestTemplate restTemplate){
+    public FakeStoreProductService(RestTemplate restTemplate, RedisTemplate<String, Object> redisTemplate){
+
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
+
     }
 
     @Override
@@ -38,6 +44,19 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long id) {
+
+        // First fetch from REDIS
+        Product productFromRedis = (Product) redisTemplate.opsForValue()
+                .get(String.valueOf(id));
+
+        // Check if REDIS has it or not
+        if(productFromRedis != null){
+            return productFromRedis;
+        }
+
+
+
+
         FakeStoreProductDto fakeStoreProductDto = restTemplate
                 .getForObject("https://fakestoreapi.com/products/" + id,
                         FakeStoreProductDto.class);
@@ -52,8 +71,10 @@ public class FakeStoreProductService implements ProductService{
         category.setTitle(fakeStoreProductDto.getCategory());
         product.setCategory(category);
 
-        return product;
+        // SAVE it to REDIS before returning it
+        redisTemplate.opsForValue().set(String.valueOf(id), product);
 
+        return product;
     }
 
     public List<Product> getProducts(){
